@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+package message;
+
+option java_package = "io.drake.im.protobuf.generate";
+option java_outer_classname = "IMAck";
+
+message Ack {
+
+  optional string originId = 1;
+  optional string destId = 2;
+  optional DestType destType = 3;
+  optional AckType ackType = 4;
+  optional int64 ackId = 5;
+  optional string extend = 6;
+  optional int64 createTime = 7;
+
+  enum DestType {
+    SINGLE = 0;
+    GROUP = 1;
+  }
+
+  enum AckType {
+    DELIVERED = 0;
+    READ = 1;
+  }
+}

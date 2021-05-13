@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+package message;
+
+option java_package = "io.drake.im.protobuf.generate";
+option java_outer_classname = "IMMessage";
+
+message ChatMsg {
+
+  optional string originId = 1;
+  optional string originName = 2;
+  optional string destId = 3;
+  repeated string groupMembers = 4;
+  optional string content = 5;
+  optional int64 createTime = 6;
+  optional bool isSigned = 7 [default = false];
+  optional MessageType type = 8;
+
+  enum MessageType {
+    SINGLE = 0;
+    GROUP = 1;
+  }
+}

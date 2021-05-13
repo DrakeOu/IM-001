@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+package message;
+
+option java_package = "io.drake.im.protobuf.generate";
+option java_outer_classname = "IMInternal";
+
+message Internal {
+
+  optional Module origin = 1;
+  optional Module dest = 2;
+  optional MsgType msgType = 3;
+  optional string body = 4;
+  optional int64 internalId = 5;
+  optional int64 createTime = 6;
+
+  enum Module {
+    CLIENT = 1;
+    CONNECTOR = 2;
+    TRANSFER = 3;
+  }
+
+  enum MsgType {
+    ACK = 1;
+    ERROR = 2;
+    GREET = 3;
+  }
+}
