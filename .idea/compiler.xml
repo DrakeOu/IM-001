@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="protobuf" />
         <module name="common" />
+        <module name="rest-web" />
         <module name="connector" />
         <module name="transfer" />
         <module name="wstest" />
         <module name="client" />
-        <module name="rest-web" />
+        <module name="protobuf" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
