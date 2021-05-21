@@ -1,5 +1,18 @@
 version: "3"
 services:
+
+  mysql:
+    image: mysql/mysql-server:8.0.25
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_DATABASE: im-001
+      MYSQL_ROOT_PASSWORD: fernandez
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
   rest-web:
     build:
       context: ../rest-web
@@ -45,14 +58,3 @@ services:
     ports:
     - "6379:6379"
 
-  mysql:
-    image: mysql/mysql-server:8.0.25
-    environment:
-      TZ: Asia/Shanghai
-      MYSQL_DATABASE: im-001
-      MYSQL_ROOT_PASSWORD: fernandez
-      MYSQL_ROOT_HOST: '%'
-    ports:
-    - "3306:3306"
-    volumes:
-    - ./sql:/docker-entrypoint-initdb.d

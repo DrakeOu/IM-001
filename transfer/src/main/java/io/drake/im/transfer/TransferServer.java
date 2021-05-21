@@ -13,6 +13,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -49,7 +50,7 @@ public class TransferServer {
                     }
                 });
         int port = 6062;
-        ChannelFuture future = bootstrap.bind("localhost", port).addListener((ChannelFutureListener) f -> {
+        ChannelFuture future = bootstrap.bind(new InetSocketAddress(port)).addListener((ChannelFutureListener) f -> {
             if(f.isSuccess()){
                 log.debug("bind to port [{}] success", port);
             }else{
