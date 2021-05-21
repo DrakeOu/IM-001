@@ -13,8 +13,7 @@
         <module>connector</module>
         <module>common</module>
         <module>transfer</module>
-        <module>client</module>
-        <module>protobuf</module>
+        <module>rest-web</module>
     </modules>
 
     <properties>
