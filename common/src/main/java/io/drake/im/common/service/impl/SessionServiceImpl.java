@@ -19,7 +19,7 @@ public class SessionServiceImpl implements SessionService {
 
     public SessionServiceImpl(){
         JedisPoolConfig config = new JedisPoolConfig();
-        jedisPool = new JedisPool(config, "localhost", 6379, 2*1000,"foobared");
+        jedisPool = new JedisPool(config, "redis", 6379, 2*1000,"foobared");
     }
 
 

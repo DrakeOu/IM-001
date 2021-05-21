@@ -1,12 +1,7 @@
 package io.drake.im.restweb.websocket;
 
-import io.drake.im.common.serializer.JSONSerializer;
-import io.drake.im.restweb.domain.ws.WSEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -14,7 +9,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,0 +1,58 @@
+version: "3"
+services:
+  rest-web:
+    build:
+      context: ../rest-web
+    depends_on:
+      - mysql
+      - kafka
+      - zookeeper
+    ports:
+    - "8080:8080"
+
+  connector:
+    build:
+      context: ../connector
+    depends_on:
+      - transfer
+      - redis
+    ports:
+    - "6061:6061"
+
+  transfer:
+    build:
+      context: ../transfer
+    depends_on:
+      - redis
+    ports:
+    - "6062:6062"
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+    - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+    - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  redis:
+    image: redis
+    ports:
+    - "6379:6379"
+
+  mysql:
+    image: mysql/mysql-server:8.0.25
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_DATABASE: im-001
+      MYSQL_ROOT_PASSWORD: fernandez
+      MYSQL_ROOT_HOST: '%'
+    ports:
+    - "3306:3306"
+    volumes:
+    - ./sql:/docker-entrypoint-initdb.d

@@ -39,7 +39,7 @@ public class TransferClient {
                         pipeline.addLast(new ConnectorToTransferHandler());
 
                     }
-                }).connect("localhost", 6062).addListener((ChannelFutureListener) future1 -> {
+                }).connect("transfer", 6062).addListener((ChannelFutureListener) future1 -> {
                     if(future1.isSuccess()){
                         log.debug("successfully connect to server");
                     }else{

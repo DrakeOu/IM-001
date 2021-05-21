@@ -49,7 +49,7 @@ public class TransferServer {
                     }
                 });
         int port = 6062;
-        ChannelFuture future = bootstrap.bind("localhost", port).addListener((ChannelFutureListener) f -> {
+        ChannelFuture future = bootstrap.bind("transfer", port).addListener((ChannelFutureListener) f -> {
             if(f.isSuccess()){
                 log.debug("bind to port [{}] success", port);
             }else{

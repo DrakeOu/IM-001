@@ -1,0 +1,1 @@
+java -jar /app/target/connector-1.0-SNAPSHOT.jar

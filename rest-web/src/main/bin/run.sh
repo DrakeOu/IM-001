@@ -1,0 +1,1 @@
+java -jar /app/target/rest-web-0.0.1-SNAPSHOT.jar
