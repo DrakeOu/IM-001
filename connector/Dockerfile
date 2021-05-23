@@ -5,5 +5,5 @@ COPY src/main/bin/run.sh .
 COPY src/main/bin/wait-for-it.sh .
 EXPOSE 6061
 RUN ["chmod", "+x", "run.sh"]
-CMD /bin/sh wait-for-it.sh -t 0 transfer:6062 --strict -- \
+CMD /bin/sh wait-for-it.sh -t 0 transfer:6062 --strict -- echo "transfer is up"\
     /bin/sh run.sh
