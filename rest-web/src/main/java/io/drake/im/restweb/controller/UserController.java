@@ -55,6 +55,7 @@ public class UserController {
         userInfo.setUserName(login.getUserName());
         userInfo.setNickName(login.getNickName());
         userInfo.setFriends(userService.friends(login.getUserId()));
+        //返回的需要是容器的地址
         userInfo.setNettyAddress(InetSocketAddress.createUnresolved("localhost", 6061));
         userInfo.setWsUrl("ws://127.0.0.1:8080/u");
         return RestResult.success(userInfo);

@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class ClientStarter {
 
-    private static final String baseUrl = "http://localhost:8080/u/";
+    private static final String baseUrl = "http://192.168.169.2:8080/u/";
 
     public static void main(String[] args) {
         ImClient imClient = ClientFactory.newClient(baseUrl);

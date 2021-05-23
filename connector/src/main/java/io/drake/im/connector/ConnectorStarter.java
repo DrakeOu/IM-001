@@ -1,6 +1,5 @@
 package io.drake.im.connector;
 
-import org.slf4j.impl.StaticLoggerBinder;
 /**
  * Date: 2021/04/19/15:21
  *
