@@ -5,5 +5,5 @@ COPY src/main/bin/run.sh .
 COPY src/main/bin/wait-for-it.sh .
 EXPOSE 6061
 RUN ["chmod", "+x", "run.sh"]
-CMD /bin/bash wait-for-it.sh -t 0 transfer:6062 --strict -- \
-    /bin/bash run.sh
+CMD /bin/sh wait-for-it.sh -t 0 transfer:6062 --strict -- \
+    /bin/sh run.sh
