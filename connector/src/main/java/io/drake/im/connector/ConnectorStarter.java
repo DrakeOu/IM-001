@@ -17,10 +17,10 @@ import java.util.Properties;
 public class ConnectorStarter {
 
     public static void main(String[] args) throws IOException {
-        TransferClient transferClient = new TransferClient();
-        transferClient.start();
-
         ConnectorConfiguration configuration = initConfig();
+
+        TransferClient transferClient = new TransferClient();
+        transferClient.start(configuration);
 
         ConnectorServer.start(transferClient, configuration);
     }
@@ -28,6 +28,9 @@ public class ConnectorStarter {
     public static ConnectorConfiguration initConfig() throws IOException {
         Properties properties = loadProperties();
         ConnectorConfiguration configuration = new ConnectorConfiguration();
+
+        configuration.setTransferHost(properties.getProperty("transfer.host", "transfer"));
+        configuration.setTransferPort(Integer.parseInt(properties.getProperty("transfer.port", "6062")));
 
         configuration.setServerPort(Integer.parseInt(properties.getProperty("server.port", "6061")));
         configuration.setRedisHost(properties.getProperty("redis.host", "localhost"));

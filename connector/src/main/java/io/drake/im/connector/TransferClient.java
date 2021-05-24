@@ -2,6 +2,7 @@ package io.drake.im.connector;
 
 import io.drake.im.common.codec.MsgDecoder;
 import io.drake.im.common.codec.MsgEncoder;
+import io.drake.im.connector.config.ConnectorConfiguration;
 import io.drake.im.connector.handler.ConnectorToTransferHandler;
 import io.drake.im.protobuf.generate.IMInternal;
 import io.netty.bootstrap.Bootstrap;
@@ -25,7 +26,7 @@ public class TransferClient {
 
     private ChannelFuture channelFuture;
 
-    public void start(){
+    public void start(ConnectorConfiguration connectorConfiguration){
         EventLoopGroup loopGroup = new NioEventLoopGroup();
 
         Bootstrap bootstrap = new Bootstrap();
@@ -39,7 +40,8 @@ public class TransferClient {
                         pipeline.addLast(new ConnectorToTransferHandler());
 
                     }
-                }).connect("transfer", 6062).addListener((ChannelFutureListener) future1 -> {
+                }).connect(connectorConfiguration.getTransferHost(), connectorConfiguration.getTransferPort())
+                .addListener((ChannelFutureListener) future1 -> {
                     if(future1.isSuccess()){
                         log.debug("successfully connect to server");
                     }else{

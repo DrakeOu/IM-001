@@ -1,1 +1,1 @@
-java -jar -Dconfig=transfer.properties -DkafkaConfig=kafkaProducer.properties ./target/transfer-0.0.1-SNAPSHOT.jar
+java -jar -Dconfig=/app/transfer.properties -DkafkaConfig=/app/kafkaProducer.properties ./target/transfer-0.0.1-SNAPSHOT.jar

@@ -19,4 +19,8 @@ public class ConnectorConfiguration {
 
     private Integer redisPort;
 
+    private String transferHost;
+
+    private Integer transferPort;
+
 }
