@@ -6,6 +6,5 @@ COPY src/main/bin/wait-for-it.sh .
 EXPOSE 6061
 RUN apk add --no-cache bash
 RUN ["chmod", "+x", "run.sh", "wait-for-it.sh"]
-CMD bash ./wait-for-it.sh -t 0 transfer:6062 --strict -- \
-    echo "transfer is up" -- \
+CMD bash ./wait-for-it.sh -t 0 transfer:6062 --strict -- echo "transfer is up" && \
     sh ./run.sh
