@@ -1,15 +1,12 @@
 pipeline{
-    agent {
-            docker {
-                image 'maven:3-alpine'
-                args '-v /root/.m2:/root/.m2'
-            }
-        }
+    agent any
 
     stages{
         stage('Print Message'){
             steps{
                 echo 'Printing message'
+                sh "docker -v"
+                sh "docker-compose -v"
             }
 
         }
@@ -22,9 +19,15 @@ pipeline{
 
         stage('Build'){
             steps{
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                echo "start building project"
+                sh "mvn -DskipTests clean package"
             }
+        }
 
+        stage("Deploy"){
+            steps{
+                echo "start deploying to docker"
+            }
         }
     }
 
