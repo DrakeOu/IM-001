@@ -5,6 +5,6 @@ COPY src/main/bin/run.sh .
 COPY src/main/bin/wait-for-it.sh .
 EXPOSE 8080
 RUN ["chmod", "+x", "run.sh" ,"wait-for-it.sh"]
-CMD ./wait-for-it.sh -t 0 mysql:3306 --strict -- echo "mysql is up"\
-    ./wait-for-it.sh -t 0 kafka:9092 --strict -- echo "kafka is up"\
-    ./run.sh
+CMD sh ./wait-for-it.sh -t 0 mysql:3306 --strict -- echo "mysql is up"\
+    sh ./wait-for-it.sh -t 0 kafka:9092 --strict -- echo "kafka is up"\
+    sh ./run.sh
