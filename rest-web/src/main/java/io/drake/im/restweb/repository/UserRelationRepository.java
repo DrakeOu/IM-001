@@ -15,6 +15,8 @@ import java.util.List;
 @Repository
 public interface UserRelationRepository extends JpaRepository<UserRelation, String> {
 
+    UserRelation findByUserNameAAndUserNameB(String userNameA, String userNameB);
+
     UserRelation findByUserAAndUserB(String userA, String userB);
 
     List<UserRelation> findByUserAAndStatus(String userA, String status);

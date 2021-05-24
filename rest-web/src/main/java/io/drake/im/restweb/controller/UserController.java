@@ -6,12 +6,14 @@ import io.drake.im.common.domain.http.req.UserReq;
 import io.drake.im.common.domain.http.vo.RelationVO;
 import io.drake.im.common.domain.http.vo.RestResult;
 import io.drake.im.common.domain.http.vo.UserInfoVO;
+import io.drake.im.restweb.config.ServerConfiguration;
 import io.drake.im.restweb.constant.UserRelationEnum;
 import io.drake.im.restweb.domain.entity.User;
 import io.drake.im.restweb.domain.entity.UserRelation;
 import io.drake.im.restweb.domain.ws.WSEvent;
 import io.drake.im.restweb.service.UserService;
 import io.drake.im.restweb.service.WebSocketService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +35,12 @@ public class UserController {
 
     private final WebSocketService webSocketService;
 
-    public UserController(UserService userService, WebSocketService webSocketService) {
+    private final ServerConfiguration serverConfiguration;
+
+    public UserController(UserService userService, WebSocketService webSocketService, ServerConfiguration serverConfiguration) {
         this.userService = userService;
         this.webSocketService = webSocketService;
+        this.serverConfiguration = serverConfiguration;
     }
 
     @RequestMapping("/register")
@@ -56,8 +61,8 @@ public class UserController {
         userInfo.setNickName(login.getNickName());
         userInfo.setFriends(userService.friends(login.getUserId()));
         //返回的需要是容器的地址
-        userInfo.setNettyAddress(InetSocketAddress.createUnresolved("localhost", 6061));
-        userInfo.setWsUrl("ws://127.0.0.1:8080/u");
+        userInfo.setNettyAddress(InetSocketAddress.createUnresolved(serverConfiguration.getNettyServerHost(), serverConfiguration.getNettyServerPort()));
+        userInfo.setWsUrl(serverConfiguration.getWsServerAddr());
         return RestResult.success(userInfo);
     }
 
@@ -111,7 +116,7 @@ public class UserController {
         if(null == userB){
             return RestResult.fail(String.format("USER %s IS NOT EXIST", relation.getUserNameB()));
         }
-        userService.updateFriendRelation(relation.getUserA(), userB.getUserId(), relation.getCmdType());
+        userService.updateFriendRelation(relation.getUserNameA(), userB.getUserName(), relation.getCmdType());
         return RestResult.success("已处理请求");
     }
 

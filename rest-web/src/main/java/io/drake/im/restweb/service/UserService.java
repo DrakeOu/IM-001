@@ -23,7 +23,7 @@ public interface UserService {
 
     UserRelation addFriend(String userIdA, String userIdB);
 
-    void updateFriendRelation(String userIdA, String userIdB, RelationCmdEnum cmd);
+    void updateFriendRelation(String userNameA, String userNameB, RelationCmdEnum cmd);
 
     User findByName(String userName);
 

@@ -17,9 +17,9 @@ public class SessionServiceImpl implements SessionService {
 
     private JedisPool jedisPool;
 
-    public SessionServiceImpl(){
+    public SessionServiceImpl(String host, Integer port, String password){
         JedisPoolConfig config = new JedisPoolConfig();
-        jedisPool = new JedisPool(config, "redis", 6379, 2*1000,"foobared");
+        jedisPool = new JedisPool(config, host, port, 2*1000,password);
     }
 
 

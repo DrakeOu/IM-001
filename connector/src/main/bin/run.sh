@@ -1,1 +1,1 @@
-java -jar /app/target/connector-1.0-SNAPSHOT.jar
+java -jar -Dconfig=connector.properties /app/target/connector-1.0-SNAPSHOT.jar

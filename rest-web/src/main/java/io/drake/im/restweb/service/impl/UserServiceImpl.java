@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService {
     //todo 考虑通知在线用户
     @Override
     @Transactional
-    public void updateFriendRelation(String userIdA, String userIdB, RelationCmdEnum cmd) {
-        UserRelation relation = userRelationRepository.findByUserAAndUserB(userIdA, userIdB);
+    public void updateFriendRelation(String userNameA, String userNameB, RelationCmdEnum cmd) {
+        UserRelation relation = userRelationRepository.findByUserNameAAndUserNameB(userNameA, userNameB);
         if(null == relation){
             throw new IMException("RELATION OPERATED IS NOT EXIST");
         }else{

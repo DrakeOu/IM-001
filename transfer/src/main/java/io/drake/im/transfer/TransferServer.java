@@ -2,6 +2,7 @@ package io.drake.im.transfer;
 
 import io.drake.im.common.codec.MsgDecoder;
 import io.drake.im.common.codec.MsgEncoder;
+import io.drake.im.transfer.config.TransferConfiguration;
 import io.drake.im.transfer.handler.ConnectorHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -30,7 +31,10 @@ public class TransferServer {
 
     private ChannelFuture channelFuture;
 
-    public TransferServer() {
+    private TransferConfiguration configuration;
+
+    public TransferServer(TransferConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     public void start(){
@@ -49,7 +53,7 @@ public class TransferServer {
                         pipeline.addLast(new ConnectorHandler());
                     }
                 });
-        int port = 6062;
+        int port = configuration.getServerPort();
         ChannelFuture future = bootstrap.bind(new InetSocketAddress(port)).addListener((ChannelFutureListener) f -> {
             if(f.isSuccess()){
                 log.debug("bind to port [{}] success", port);

@@ -4,6 +4,7 @@ package io.drake.im.connector;
 import io.drake.im.common.codec.MsgDecoder;
 import io.drake.im.common.codec.MsgEncoder;
 import io.drake.im.common.service.impl.SessionServiceImpl;
+import io.drake.im.connector.config.ConnectorConfiguration;
 import io.drake.im.connector.domain.conn.ConnectorConnContext;
 import io.drake.im.connector.handler.ConnectorToClientHandler;
 import io.drake.im.connector.service.ConnectorClientService;
@@ -23,10 +24,12 @@ import java.util.concurrent.TimeoutException;
 public class ConnectorServer {
     private static final Logger log = LoggerFactory.getLogger(ConnectorServer.class);
 
-    public static void start(TransferClient transferClient){
+    public static void start(TransferClient transferClient, ConnectorConfiguration connectorConfiguration){
         EventLoopGroup workGroup = new NioEventLoopGroup();
         EventLoopGroup bossGroup = new NioEventLoopGroup();
-        ConnectorToClientHandler connectorToClientHandler = new ConnectorToClientHandler(new ConnectorClientService(new ConnectorConnContext(), new SessionServiceImpl(), transferClient));
+        ConnectorToClientHandler connectorToClientHandler = new ConnectorToClientHandler(new ConnectorClientService(new ConnectorConnContext(),
+                new SessionServiceImpl(connectorConfiguration.getRedisHost(), connectorConfiguration.getRedisPort(), connectorConfiguration.getRedisPassword()),
+                transferClient));
         /**
          * 固定拳法
          * bootstrap启动，设置group, 设置连接channel，添加handlerInitializer, 设置option
@@ -42,7 +45,7 @@ public class ConnectorServer {
                         pipeline.addLast(connectorToClientHandler);
                     }
                 });
-        int port = 6061;
+        int port = connectorConfiguration.getServerPort();
         ChannelFuture f = serverBootstrap.bind(new InetSocketAddress(port)).addListener((ChannelFutureListener) future -> {
             if(future.isSuccess()){
                 log.debug("bind to port [{}] success", port);
